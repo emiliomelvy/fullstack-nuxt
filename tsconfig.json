@@ -4,7 +4,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "#ui/*": ["./node_modules/@nuxt/ui/dist/runtime/*"]
-    }
+      "#ui/*": ["node_modules/@nuxt/ui/dist/runtime/types/*"],
+      "#app": ["./.nuxt/types/app/index.d.ts"],
+      "#app/*": ["./.nuxt/types/app/*"]
+    },
+    "moduleResolution": "node"
   }
 }

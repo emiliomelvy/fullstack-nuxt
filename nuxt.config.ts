@@ -2,9 +2,13 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: false },
+  srcDir: "src/",
   typescript: {
-    typeCheck: true,
+    // typeCheck: true,
     strict: true,
   },
-  modules: ["@nuxt/ui"],
+  image: {
+    format: ["webp"],
+  },
+  modules: ["@nuxt/ui", "@nuxt/image"],
 });
