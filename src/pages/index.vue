@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import Login from "./login.vue";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 
-const router = useRouter();
+// const router = useRouter();
 
-router.replace("/login");
+// router.replace("/login");
 </script>
 
 <template>

@@ -8,6 +8,7 @@
       "#app": ["./.nuxt/types/app/index.d.ts"],
       "#app/*": ["./.nuxt/types/app/*"]
     },
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "useUnknownInCatchVariables": false
   }
 }

@@ -1,5 +1,6 @@
 import { getUser } from "~/server/repositories/user";
 import { z } from "zod";
+// import { defineEventHandler, useSession } from "h3";
 
 const schema = z.object({
   username: z
@@ -19,6 +20,7 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const validatedData = schema.parse(body);
 
+    console.log("valid :", validatedData);
     const user = await getUser(validatedData.username, validatedData.password);
     if (!user) {
       throw createError({
@@ -27,7 +29,9 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    const session = await useSession(event);
+    const session = await useSession(event, {
+      password: "testingtestingtestingtestingtesting",
+    });
     await session.update({
       user: {
         username: user.username,
