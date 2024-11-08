@@ -16,3 +16,18 @@ export interface AuthResponse {
 export interface SessionData {
   user?: User;
 }
+
+export interface LoginResponse {
+  status: boolean;
+  data?: {
+    user: User;
+  };
+  error?: {
+    message: string;
+  };
+}
+
+export interface LogoutResponse {
+  status: boolean;
+  message?: string;
+}

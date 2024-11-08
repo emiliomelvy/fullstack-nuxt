@@ -16,6 +16,8 @@ const schema = z.object({
 });
 
 export default defineEventHandler(async (event) => {
+  const body = await readBody(event);
+  const validatedData = schema.parse(body);
   try {
     const body = await readBody(event);
     const validatedData = schema.parse(body);
@@ -29,15 +31,15 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    const session = await useSession(event, {
-      password: "testingtestingtestingtestingtesting",
-    });
-    await session.update({
-      user: {
-        username: user.username,
-        role: user.role,
-      },
-    });
+    // const session = await useSession(event, {
+    //   password: "testingtestingtestingtestingtesting",
+    // });
+    // await session.update({
+    //   user: {
+    //     username: user.username,
+    //     role: user.role,
+    //   },
+    // });
 
     return { success: true, user };
   } catch (error) {

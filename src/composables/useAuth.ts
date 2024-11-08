@@ -1,6 +1,6 @@
-import type { User } from "types/auth";
+import type { User, LoginResponse, LogoutResponse } from "types/auth";
 
-export const useAuth = () => {
+export default function useAuth() {
   const user = useState<User | null>("user", () => null);
   const router = useRouter();
 
@@ -8,13 +8,53 @@ export const useAuth = () => {
     user.value = userData;
   };
 
-  const logout = async () => {
+  const login = async (
+    username: string,
+    password: string
+  ): Promise<LoginResponse> => {
+    // status.value = "loading";
+    try {
+      const result = await $fetch("/api/auth/login", {
+        method: "POST",
+        body: {
+          username,
+          password,
+        },
+      });
+
+      return { status: true, data: { user: result.user } };
+      // if (result.status !== 200) {
+      //   error.value = result.message;
+      //   status.value = "error";
+      //   return;
+      // }
+
+      // status.value = "success";
+      // error.value = null;
+    } catch (e) {
+      if (e.response?.status === 401) {
+        return {
+          status: false,
+          error: {
+            message:
+              "Invalid credentials. Please check your username and password.",
+          },
+        };
+      }
+      return { status: false, error: e };
+      // error.value =
+      //   (e as Error).message || "An error occurred while logging in";
+      // status.value = "error";
+    }
+  };
+
+  const logout = async (): Promise<LogoutResponse> => {
     try {
       await $fetch("/api/auth/logout", { method: "POST" });
-      user.value = null;
-      await router.push("/login");
+
+      return { status: true, message: "Logged out successfully" };
     } catch (error) {
-      console.error("Logout error:", error);
+      return { status: false, message: "Logout failed" };
     }
   };
 
@@ -34,7 +74,8 @@ export const useAuth = () => {
   return {
     user,
     setUser,
+    login,
     logout,
     checkAuth,
   };
-};
+}
