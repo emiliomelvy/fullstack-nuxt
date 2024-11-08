@@ -31,3 +31,8 @@ export interface LogoutResponse {
   status: boolean;
   message?: string;
 }
+
+export interface SessionConfig {
+  name?: string;
+  password?: string;
+}

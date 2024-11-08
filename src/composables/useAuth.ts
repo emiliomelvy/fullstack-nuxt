@@ -1,18 +1,16 @@
 import type { User, LoginResponse, LogoutResponse } from "types/auth";
 
 export default function useAuth() {
-  const user = useState<User | null>("user", () => null);
-  const router = useRouter();
+  // const user = useState<User | null>("user", () => null);
 
-  const setUser = (userData: User | null) => {
-    user.value = userData;
-  };
+  // const setUser = (userData: User | null) => {
+  //   user.value = userData;
+  // };
 
   const login = async (
     username: string,
     password: string
   ): Promise<LoginResponse> => {
-    // status.value = "loading";
     try {
       const result = await $fetch("/api/auth/login", {
         method: "POST",
@@ -23,14 +21,6 @@ export default function useAuth() {
       });
 
       return { status: true, data: { user: result.user } };
-      // if (result.status !== 200) {
-      //   error.value = result.message;
-      //   status.value = "error";
-      //   return;
-      // }
-
-      // status.value = "success";
-      // error.value = null;
     } catch (e) {
       if (e.response?.status === 401) {
         return {
@@ -42,9 +32,6 @@ export default function useAuth() {
         };
       }
       return { status: false, error: e };
-      // error.value =
-      //   (e as Error).message || "An error occurred while logging in";
-      // status.value = "error";
     }
   };
 
@@ -58,24 +45,24 @@ export default function useAuth() {
     }
   };
 
-  const checkAuth = async () => {
-    try {
-      const { data } = await useFetch<{ user?: User }>("/api/auth/check", {
-        headers: useRequestHeaders(["cookie"]),
-      });
-      setUser(data.value?.user || null);
-      return data.value?.user;
-    } catch (error) {
-      setUser(null);
-      return null;
-    }
-  };
+  // const checkAuth = async () => {
+  //   try {
+  //     const { data } = await useFetch<{ user?: User }>("/api/auth/check", {
+  //       headers: useRequestHeaders(["cookie"]),
+  //     });
+  //     setUser(data.value?.user || null);
+  //     return data.value?.user;
+  //   } catch (error) {
+  //     setUser(null);
+  //     return null;
+  //   }
+  // };
 
   return {
     user,
-    setUser,
+    // setUser,
     login,
     logout,
-    checkAuth,
+    // checkAuth,
   };
 }

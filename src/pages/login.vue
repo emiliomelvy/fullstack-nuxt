@@ -15,7 +15,9 @@
       >
         <UIcon name="akar-icons:planet" class="w-10 h-10" />
         <div class="text-4xl font-medium">Welcome Back!</div>
-        <div class="text-gray-500 lg:pt-3">Please enter your details</div>
+        <div class="text-gray-500 lg:pt-3 lg:pb-5">
+          Please enter your details
+        </div>
         <form @submit.prevent="handleSubmit" class="space-y-6">
           <UFormGroup name="username" :error="errors.username">
             <template #label>
@@ -87,10 +89,8 @@ async function handleSubmit() {
     errors.value = {};
     await schema.validate(form, { abortEarly: false });
 
-    // Pass username and password to the login function
     const response = await login(form.username, form.password);
 
-    // Redirect on successful login
     if (response?.status) {
       localStorage.setItem(
         "user",

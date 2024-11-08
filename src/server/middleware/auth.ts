@@ -1,21 +1,53 @@
-// // import { defineEventHandler, useSession } from "h3";
+import { H3Event } from "h3";
+import { SessionData, SessionConfig } from "~~/types/auth";
 
-export default defineEventHandler(async (event) => {
-  console.log("middleware server");
-  //   const session = await useSession(event, {
-  //     password: "testingtestingtestingtestingtesting",
+// interface SessionData {
+//   user: {
+//     id: string;
+//     username: string;
+//     // Add other user properties as needed
+//   };
+// }
+
+const getSession = async (
+  event: H3Event,
+  config: SessionConfig
+): Promise<SessionData | null> => {
+  const sessionCookie = getCookie(event, config.name || "auth_session");
+  if (!sessionCookie) return null;
+
+  try {
+    // Your session verification logic here
+    // This is just an example - implement your actual session verification
+    const sessionData = JSON.parse(sessionCookie);
+    return sessionData;
+  } catch (error) {
+    return null;
+  }
+};
+
+export default defineEventHandler(async (event: H3Event) => {
+  // const publicRoutes = [
+  //   "/api/auth/login",
+  //   // "/api/auth/register",
+  //   // "/api/auth/logout",
+  // ];
+  // const url = getRequestURL(event);
+  // if (publicRoutes.includes(url.pathname)) {
+  //   return;
+  // }
+  // // Create session config
+  // const sessionConfig: SessionConfig = {
+  //   name: "auth_session",
+  //   // Add other config options as needed
+  // };
+  // const session = await getSession(event, sessionConfig);
+  // if (!session) {
+  //   throw createError({
+  //     statusCode: 401,
+  //     message: "Unauthorized",
   //   });
-  //   const path = getRequestURL(event).pathname;
-  //   if (path === "/login") {
-  //     if (session.data.user) {
-  //       return sendRedirect(event, "/home");
-  //     }
-  //     return;
-  //   }
-  //   if (!session.data.user && path !== "/login") {
-  //     return sendRedirect(event, "/login");
-  //   }
-  //   if (path === "/admin" && session.data.user?.role !== "admin") {
-  //     return sendRedirect(event, "/home");
-  //   }
+  // }
+  // // Add user to event context
+  // event.context.user = session.user;
 });
