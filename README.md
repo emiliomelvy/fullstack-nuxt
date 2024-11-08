@@ -1,75 +1,22 @@
-# Nuxt Minimal Starter
+This project is a Nuxt.js-based web application that demonstrates user authentication and role-based access control for admin and employee roles. The app includes client-side and server-side validation, secure session management, and role-based route restrictions.
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+# Key Features
 
-## Setup
+- User Authentication: Login with username and password using H3 sessions.
+- Role-Based Routing: After login, users are redirected to the home page:
+  - Admin users can access both /home and /admin pages.
+  - Employee users can access /home but are restricted from the /admin page.
+- Client-Side Validation: Form validation is implemented on the client side with Yup.
+- Server-Side Validation: Server-side input validation is implemented using Zod.
+- Server Middleware Authorization: Access control for protected routes to ensure secure, role-based navigation.
 
-Make sure to install dependencies:
+# Tech Stack
 
-```bash
-# npm
-npm install
+- Nuxt 3 with TypeScript for a modern, type-safe web application.
+- H3 Session for secure, server-side session management.
+- Tailwind CSS for responsive, utility-first styling.
+- Nuxt UI (Headless UI) for accessible, composable UI components.
+- Yup for client-side validation.
+- Zod for server-side validation to ensure data integrity.
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Name: Emilio Melvy A S
