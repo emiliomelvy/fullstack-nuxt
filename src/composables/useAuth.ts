@@ -1,12 +1,6 @@
-import type { User, LoginResponse, LogoutResponse } from "types/auth";
+import type { LoginResponse, LogoutResponse } from "types/auth";
 
 export default function useAuth() {
-  // const user = useState<User | null>("user", () => null);
-
-  // const setUser = (userData: User | null) => {
-  //   user.value = userData;
-  // };
-
   const login = async (
     username: string,
     password: string
@@ -44,25 +38,8 @@ export default function useAuth() {
       return { status: false, message: "Logout failed" };
     }
   };
-
-  // const checkAuth = async () => {
-  //   try {
-  //     const { data } = await useFetch<{ user?: User }>("/api/auth/check", {
-  //       headers: useRequestHeaders(["cookie"]),
-  //     });
-  //     setUser(data.value?.user || null);
-  //     return data.value?.user;
-  //   } catch (error) {
-  //     setUser(null);
-  //     return null;
-  //   }
-  // };
-
   return {
-    user,
-    // setUser,
     login,
     logout,
-    // checkAuth,
   };
 }

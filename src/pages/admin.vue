@@ -4,7 +4,12 @@
       <div class="p-4">
         <h3 class="text-lg font-semibold">Access Denied</h3>
         <p class="my-5">{{ modal.message }}</p>
-        <UButton @click="redirectToLogin" color="primary">Go to Login</UButton>
+        <UButton v-if="user" @click="redirectToLogin" color="primary"
+          >Go to Home</UButton
+        >
+        <UButton v-else @click="redirectToLogin" color="primary"
+          >Go to Login</UButton
+        >
       </div>
     </UModal>
     <div class="min-h-screen bg-gray-50 p-8">
@@ -32,7 +37,9 @@ const router = useRouter();
 const user = ref(null);
 const modal = reactive({
   isOpen: false,
-  message: "You need to be logged in to access this page.",
+  message: user
+    ? "page is only accessible by administrators"
+    : "You need to be logged in to access this page.",
 });
 
 const redirectToLogin = () => {
@@ -42,7 +49,7 @@ const redirectToLogin = () => {
 
 onMounted(() => {
   const userData = localStorage.getItem("user");
-  if (userData) {
+  if (userData && JSON.parse(userData) === "admin") {
     user.value = JSON.parse(userData);
   } else {
     modal.isOpen = true;
